@@ -1,0 +1,35 @@
+#! /bin/python3
+
+import os
+import sys
+import re
+
+if (len(sys.argv) < 2):
+    print("Please include a tag name start i.e latest-tag qa5")
+    exit(1)
+
+starter = sys.argv[1]
+
+def find_next_version(versions):
+    # Convert versions to a list of integers
+    version_numbers = [list(map(int, version.split('.'))) for version in versions]
+    
+    # Sort the version numbers in descending order
+    version_numbers.sort(reverse=True)
+    
+    # Increment the last version number
+    next_version = version_numbers[0]
+    next_version[-1] += 1
+    
+    # Join the version numbers into a string
+    next_version_str = '.'.join(map(str, next_version))
+    
+    return next_version_str
+
+with os.popen("git tag") as tags:
+    foo = list(map(lambda s: s[len(starter):], list(filter(lambda s: s.startswith(starter), tags))))
+    try:
+        print(starter + find_next_version(foo))
+    except:
+        print("Could not find the next tag version for \"%s\"" % (starter))
+        exit(1)

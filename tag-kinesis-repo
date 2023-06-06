@@ -1,0 +1,19 @@
+#!/bin/sh
+expected_directory=$1
+tag_pattern=$2
+
+correct_directory=$(in-correct-directory $expected_directory)
+if [ "$correct_directory" = "1" ]; then
+  echo "Error: You need to be in the $expected_directory folder"
+  exit 1
+fi
+
+not_pushed=$(has-unpushed-commits)
+if [ "$not_pushed" = "1" ]; then
+  echo "Error: There are unpushed commits in the current branch."
+else
+  tag=$(latest-tag $tag_pattern)
+  echo $tag
+  git tag $tag
+  git push origin $tag
+fi

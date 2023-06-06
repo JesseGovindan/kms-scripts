@@ -1,0 +1,9 @@
+#!/bin/bash
+
+current_dir=$(pwd)
+
+if [[ $current_dir == *"$1" ]]; then
+  echo 0
+else
+  echo 1
+fi

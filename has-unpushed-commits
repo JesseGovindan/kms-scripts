@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Fetch the latest changes from the remote repository
+git fetch
+
+# Get the name of the current branch
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+# Get the commit hash of the last commit that has been pushed to the remote repository
+last_pushed_commit=$(git rev-parse origin/${current_branch})
+
+# Get the commit hash of the latest commit in the current branch
+latest_commit=$(git rev-parse HEAD)
+
+if [ "$last_pushed_commit" != "$latest_commit" ]; then
+  echo 1
+else
+  echo 0
+fi
