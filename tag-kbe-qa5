@@ -1,0 +1,2 @@
+#!/bin/sh
+tag-kinesis-repo "kbe-aws" "qa5."
