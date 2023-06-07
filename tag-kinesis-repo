@@ -1,19 +1,25 @@
 #!/bin/sh
-expected_directory=$1
-tag_pattern=$2
+expectedDirectory=$1
+tagPattern=$2
 
-correct_directory=$(in-correct-directory $expected_directory)
-if [ "$correct_directory" = "1" ]; then
-  echo "Error: You need to be in the $expected_directory folder"
+correctDirectory=$(in-correct-directory $expectedDirectory)
+if [ "$correctDirectory" = "1" ]; then
+  echo "Error: You need to be in the $expectedDirectory folder"
   exit 1
 fi
 
-not_pushed=$(has-unpushed-commits)
-if [ "$not_pushed" = "1" ]; then
-  echo "Error: There are unpushed commits in the current branch."
-else
-  tag=$(latest-tag $tag_pattern)
-  echo $tag
+notPushed=$(has-unpushed-commits)
+if [ "$notPushed" = "1" ]; then
+  echo "Error: The branch is not up to date with the remove. Make sure to push your changes or pull from the remote."
+  exit 1
+fi
+
+
+tag=$(latest-tag $tagPattern)
+read -p "Push tag $tag (y/n)? " shouldPushTag
+if [ "$shouldPushTag" = "y" ]; then
   git tag $tag
   git push origin $tag
+else
+  echo "Bye."
 fi
