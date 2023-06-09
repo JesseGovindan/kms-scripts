@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# N.B
+# ------------------------------------------------------------------------------------------
+# | This script assumes you've exported the variable KINESIS_ROOT (possibly in your .bashrc)
+# | KINESIS_ROOT should point to the folder where you store the kinesis project repos
+# | 
+# | Add this to your .bashrc
+# | EXPORT KINESIS_ROOT=~/Projects/kinesis/ # Change this to your actual directory
+# ------------------------------------------------------------------------------------------
+
+clearDataFolder () {
+  cd $1
+  pwd
+  docker-compose down
+  sudo rm -rf ./data
+}
+
+folders_to_clear=( \
+ "$KINESIS_ROOT/kinesis-account-management" \
+ "$KINESIS_ROOT/kinesis-exchange" \
+ "$KINESIS_ROOT/secondary-exchange-services" \
+ "$KINESIS_ROOT/kinesis-core-services" \
+ "$KINESIS_ROOT/debit-card-2022-build" \
+)
+
+for folder in ${folders_to_clear[@]}; do
+  clearDataFolder ${folder}
+done
