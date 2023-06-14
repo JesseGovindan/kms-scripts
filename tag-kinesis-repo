@@ -16,6 +16,12 @@ fi
 
 
 tag=$(latest-tag $tagPattern)
+
+if [ $? -ne 0 ]; then
+  echo "Error: $tag"
+  exit 1
+fi
+
 read -p "Push tag $tag (y/n)? " shouldPushTag
 if [ "$shouldPushTag" = "y" ]; then
   git tag $tag
