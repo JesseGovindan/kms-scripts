@@ -10,7 +10,7 @@ fi
 
 notPushed=$(has-unpushed-commits)
 if [ "$notPushed" = "1" ]; then
-  echo "Error: The branch is not up to date with the remove. Make sure to push your changes or pull from the remote."
+  echo "Error: The branch is not up to date with the remote. Make sure to push your changes or pull from the remote."
   exit 1
 fi
 
