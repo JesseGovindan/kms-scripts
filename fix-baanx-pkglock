@@ -1,0 +1,26 @@
+#!/bin/sh
+expectedDirectory="debit-card-2022-build" 
+
+correctDirectory=$(in-correct-directory $expectedDirectory)
+if [ "$correctDirectory" = "1" ]; then
+  echo "Error: You need to be in the $expectedDirectory folder"
+  exit 1
+fi
+
+echo "Step 1. Deleting Baanx node_modules"
+cd packages/services/baanx-integration
+rm -rf node_modules
+cd -
+
+# Source nvm
+. ~/.nvm/nvm.sh
+nvm use
+
+echo "Step 2. Bootstrapping"
+npm run bootstrap
+
+echo "Step 3. Installing dependencies"
+npm i
+
+echo "Step 4. Building"
+npm run build
