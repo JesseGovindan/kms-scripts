@@ -1,0 +1,2 @@
+#!/bin/sh
+tag-kinesis-repo "kinesis-admin-services" "qa7.1.1."
