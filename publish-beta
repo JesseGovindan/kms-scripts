@@ -1,0 +1,43 @@
+#!/bin/sh
+PKG_NAME=$1
+
+if [ -z "$PKG_NAME" ]; then
+  echo "Error package_name not provided. Usage publish-beta package_name"
+  exit 1
+fi
+
+if [ ! -d "./packages/$PKG_NAME" ]; then
+  echo "Error folder ./packages/$PKG_NAME does not exist."
+  exit 1
+fi
+
+
+# Step 1 build
+echo -n "Checking if build is passing..."
+npmibb > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+  echo "Build failed, aborting."
+  exit 1
+fi
+echo "DONE"
+
+# Step 2 delete dist folder
+echo -n "Deleting dist folder..."
+cd packages/$PKG_NAME
+rm -rf dist
+cd - > /dev/null
+echo "DONE"
+
+# Step 3 build again
+echo -n "Building again to regenerate dist folder..."
+npmibb > /dev/null 2>&1
+if [ $? -ne 0 ]; then { echo "Second build failed, aborting." ; exit 1; } fi
+echo "DONE"
+
+# Step 4 Publish package
+echo "Publishing $PKG_NAME beta package"
+cd - > /dev/null
+
+. ~/.nvm/nvm.sh
+nvm use > /dev/null
+npm publish --tag beta
