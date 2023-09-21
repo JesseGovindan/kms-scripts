@@ -1,0 +1,2 @@
+#!/bin/sh
+tag-kinesis-repo "debit-card-2022-build" "qa2.1.1."
