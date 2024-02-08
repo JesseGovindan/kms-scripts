@@ -1,0 +1,2 @@
+#!/bin/sh
+tag-kinesis-repo "physical-debit-card-front-end" "qa.1.0"
