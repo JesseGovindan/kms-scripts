@@ -1,0 +1,2 @@
+#!/bin/sh
+tag-kinesis-repo "kinesis-account-management" "qa10."
