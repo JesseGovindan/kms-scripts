@@ -1,0 +1,2 @@
+#!/bin/sh
+tag-kinesis-repo "kms" "qa7-b."
