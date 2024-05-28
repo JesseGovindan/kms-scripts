@@ -1,0 +1,2 @@
+#!/bin/sh
+tag-kinesis-repo "kinesis-partner-program" "qa2."
