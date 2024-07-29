@@ -1,2 +1,2 @@
 #!/bin/sh
-tag-kinesis-repo "secondary-exchange-services" "qa7.0."
+tag-kinesis-repo "secondary-exchange-services" "qa7.1.5."
