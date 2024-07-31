@@ -1,0 +1,2 @@
+#!/bin/sh
+tag-kinesis-repo "kinesis-websocket-gateway" "qa5."
