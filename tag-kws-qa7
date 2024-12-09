@@ -1,0 +1,2 @@
+#!/bin/sh
+tag-kinesis-repo "kinesis-withdrawal-services" "qa7."
