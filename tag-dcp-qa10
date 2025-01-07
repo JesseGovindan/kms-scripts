@@ -1,0 +1,2 @@
+#!/bin/sh
+tag-kinesis-repo "debit-card-payment-processing" "qa10.0.1."
