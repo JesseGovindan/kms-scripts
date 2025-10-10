@@ -1,2 +1,2 @@
 #!/bin/sh
-tag-kinesis-repo "kms" "qa7.1."
+tag-kinesis-repo "kms" "qa7."
