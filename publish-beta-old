@@ -11,7 +11,6 @@ if [ ! -d "./packages/$PKG_NAME" ]; then
   exit 1
 fi
 
-
 # Step 1 build
 echo -n "Checking if build is passing..."
 npmibb > /dev/null 2>&1
@@ -40,4 +39,14 @@ cd - > /dev/null
 
 . ~/.nvm/nvm.sh
 nvm use > /dev/null
-npm publish --tag beta
+
+if [ $2 = "non-beta" ]; then
+  echo "Publishing $PKG_NAME non-beta package"
+  cd packages/$PKG_NAME
+  npm publish
+  exit 0
+else
+  echo "Publishing $PKG_NAME beta package"
+  npm publish --tag beta
+fi
+

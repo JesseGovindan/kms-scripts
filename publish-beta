@@ -14,9 +14,12 @@ fi
 . ~/.nvm/nvm.sh
 nvm use > /dev/null
 
+cd packages/$PKG_NAME
+
 # Step 1 build
 echo -n "Checking if build is passing..."
-npm run build > /dev/null 2>&1
+# pnpm run build > /dev/null 2>&1
+pnpm run build
 if [ $? -ne 0 ]; then
   echo "Build failed, aborting."
   exit 1
@@ -25,19 +28,28 @@ echo "DONE"
 
 # Step 2 delete dist folder
 echo -n "Deleting dist folder..."
-cd packages/$PKG_NAME
 rm -rf dist
-cd - > /dev/null
+# cd - > /dev/null
 echo "DONE"
 
 # Step 3 build again
 echo -n "Building again to regenerate dist folder..."
-npm run build > /dev/null 2>&1
+# pnpm run build > /dev/null 2>&1
+pnpm run build
 if [ $? -ne 0 ]; then { echo "Second build failed, aborting." ; exit 1; } fi
 echo "DONE"
 
 # Step 4 Publish package
 echo "Publishing $PKG_NAME beta package"
-cd - > /dev/null
+# cd - > /dev/null
 
-npm publish --tag beta
+if [ $2 = "non-beta" ]; then
+  echo "Publishing $PKG_NAME non-beta package"
+  # cd packages/$PKG_NAME
+  pnpm publish
+  exit 0
+else
+  echo "Publishing $PKG_NAME beta package"
+  pnpm publish --tag beta
+fi
+
